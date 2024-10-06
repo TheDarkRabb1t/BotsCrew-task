@@ -11,5 +11,5 @@ public interface LectorRepository extends JpaRepository<Lector, Long> {
             from lector l
             where l.full_name ILIKE concat('%', :value, '%');
             """, nativeQuery = true)
-    Integer globalSearchByValue(@Param("value") String value);
+    Lector globalSearchByValue(@Param("value") String value);
 }

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import tdr.task.botscrewtask.model.entity.Department;
 
+import java.util.List;
+
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Department getDepartmentByName(String name);
 
@@ -15,7 +17,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
                      join lector l on dl.lectors_id = l.id
             where d.name = :name;
             """, nativeQuery = true)
-    Integer getAverageSalary(@Param("name") String departmentName);
+    Double getAverageSalary(@Param("name") String departmentName);
 
     @Query(value = """
             select count(*)
@@ -39,6 +41,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
             from department d
             where d.name ILIKE concat('%', :value, '%');
             """, nativeQuery = true)
-    Integer globalSearchByValue(@Param("value") String value);
+    List<Department> globalSearchByValue(@Param("value") String value);
 
 }
