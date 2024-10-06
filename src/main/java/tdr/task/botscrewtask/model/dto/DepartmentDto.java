@@ -13,5 +13,5 @@ import java.util.Set;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public record DepartmentDto(Long id, String name, String description, String location,
-                            Set<Lector> lectors) implements Serializable {
+                            Set<Lector> lectors, LectorDto head) implements Serializable {
 }

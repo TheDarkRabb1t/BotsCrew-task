@@ -31,6 +31,10 @@ public class Department {
     @Column(name = "location")
     private String location;
 
+    @OneToOne(cascade = CascadeType.DETACH, optional = false)
+    @JoinColumn(name = "head_id", nullable = false, unique = true)
+    private Lector head;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
