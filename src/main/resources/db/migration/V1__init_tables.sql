@@ -1,3 +1,14 @@
+CREATE TABLE lector
+(
+    id        BIGINT           NOT NULL,
+    full_name VARCHAR(255)     NOT NULL,
+    degree    SMALLINT         NOT NULL,
+    salary    DOUBLE PRECISION NOT NULL,
+    created   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_lector PRIMARY KEY (id)
+);
+
 CREATE TABLE department
 (
     id          BIGINT NOT NULL,
@@ -16,17 +27,6 @@ CREATE TABLE department_lectors
     department_id BIGINT NOT NULL,
     lectors_id    BIGINT NOT NULL,
     CONSTRAINT pk_department_lectors PRIMARY KEY (department_id, lectors_id)
-);
-
-CREATE TABLE lector
-(
-    id        BIGINT           NOT NULL,
-    full_name VARCHAR(255)     NOT NULL,
-    degree    SMALLINT         NOT NULL,
-    salary    DOUBLE PRECISION NOT NULL,
-    created   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT pk_lector PRIMARY KEY (id)
 );
 
 ALTER TABLE department_lectors
