@@ -5,7 +5,7 @@ import org.mapstruct.MappingTarget;
 import tdr.task.botscrewtask.model.dto.LectorDto;
 import tdr.task.botscrewtask.model.entity.Lector;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface LectorMapper {
     LectorDto toDto(Lector lector);
 
