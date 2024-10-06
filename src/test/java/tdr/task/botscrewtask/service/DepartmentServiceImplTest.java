@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import tdr.task.botscrewtask.model.dto.LectorDto;
 import tdr.task.botscrewtask.model.entity.Department;
 import tdr.task.botscrewtask.model.entity.Lector;
 import tdr.task.botscrewtask.model.enums.Degree;
-import tdr.task.botscrewtask.model.mapper.DepartmentMapper;
+import tdr.task.botscrewtask.model.mapper.LectorMapper;
 import tdr.task.botscrewtask.repository.DepartmentRepository;
 import tdr.task.botscrewtask.service.impl.DepartmentServiceImpl;
-
-import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,9 +21,8 @@ public class DepartmentServiceImplTest {
 
     @Mock
     private DepartmentRepository departmentRepository;
-
     @Mock
-    private DepartmentMapper departmentMapper;
+    private LectorMapper lectorMapper;
 
     @InjectMocks
     private DepartmentServiceImpl departmentService;
@@ -35,14 +33,15 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void testGetHeadByDepartmentName_ShouldReturnDepartmentHead() {
+    public void testGetHeadByDepartmentName_ShouldReturnDepartmentHeadDto() {
         String departmentName = "Computer Science";
+
         Lector headLector = new Lector();
         headLector.setFullName("John Doe");
         headLector.setDegree(Degree.PROFESSOR);
         headLector.setSalary(9000.0);
-        headLector.setCreated(Instant.now());
-        headLector.setUpdated(Instant.now());
+
+        LectorDto headLectorDto = new LectorDto(1L, "John Doe", Degree.PROFESSOR, 9000.0);
 
         Department department = new Department();
         department.setName(departmentName);
@@ -50,11 +49,17 @@ public class DepartmentServiceImplTest {
 
         when(departmentRepository.getDepartmentByName(departmentName)).thenReturn(department);
 
-        Lector result = departmentService.getHeadByDepartmentName(departmentName);
+        when(lectorMapper.toDto(headLector)).thenReturn(headLectorDto);
+
+        LectorDto result = departmentService.getHeadByDepartmentName(departmentName);
 
         assertNotNull(result);
-        assertEquals("John Doe", result.getFullName());
+        assertEquals("John Doe", result.fullName());
+        assertEquals(Degree.PROFESSOR, result.degree());
+        assertEquals(9000.0, result.salary());
+
         verify(departmentRepository, times(1)).getDepartmentByName(departmentName);
+        verify(lectorMapper, times(1)).toDto(headLector);
     }
 
     @Test

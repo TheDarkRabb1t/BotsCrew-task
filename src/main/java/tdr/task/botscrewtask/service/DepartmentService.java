@@ -1,9 +1,9 @@
 package tdr.task.botscrewtask.service;
 
-import tdr.task.botscrewtask.model.entity.Lector;
+import tdr.task.botscrewtask.model.dto.LectorDto;
 
 public interface DepartmentService {
-    Lector getHeadByDepartmentName(String name);
+    LectorDto getHeadByDepartmentName(String name);
 
     String formStatisticForDepartment(String departmentName);
 
