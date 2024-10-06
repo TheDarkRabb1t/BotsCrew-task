@@ -75,7 +75,7 @@ public class DepartmentServiceImplTest {
 
         String result = departmentService.formStatisticForDepartment(departmentName);
 
-        assertEquals("assistants - 10, associate professors - 5, professors - 3", result);
+        assertEquals("assistant - 10, associate professor - 5, professor - 3", result);
         verify(departmentRepository, times(1))
                 .countLecturesByDepartmentName(departmentName, Degree.ASSISTANT.ordinal());
         verify(departmentRepository, times(1))
