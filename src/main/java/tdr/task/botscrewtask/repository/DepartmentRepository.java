@@ -35,10 +35,9 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Integer countEmployeesByDepartmentName(@Param("name") String departmentName);
 
     @Query(value = """
-            select count(*)
+            select *
             from department d
-                     join public.department_lectors dl on d.id = dl.department_id
-            where d.name = :value;
+            where d.name ILIKE concat('%', :value, '%');
             """, nativeQuery = true)
     Integer globalSearchByValue(@Param("value") String value);
 
