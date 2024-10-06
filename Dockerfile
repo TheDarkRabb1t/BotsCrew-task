@@ -14,4 +14,4 @@ RUN mv target/*.jar /app/BotsCrew-task.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "BotsCrew-task.jar"]
+CMD ["java", "-Dspring.profiles.active=develop", "-jar", "BotsCrew-task.jar"]
