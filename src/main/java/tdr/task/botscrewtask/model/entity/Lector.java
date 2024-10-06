@@ -4,9 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 import tdr.task.botscrewtask.model.enums.Degree;
+
+import java.time.Instant;
 
 @Entity
 @Getter
@@ -29,4 +33,12 @@ public class Lector {
     @Column(name = "salary", nullable = false)
     private Double salary;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created")
+    private Instant created;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated")
+    private Instant updated;
 }

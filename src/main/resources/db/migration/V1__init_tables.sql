@@ -4,6 +4,8 @@ CREATE TABLE department
     name        VARCHAR(255),
     description VARCHAR(255),
     location    VARCHAR(255),
+    created     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_department PRIMARY KEY (id)
 );
 
@@ -20,6 +22,8 @@ CREATE TABLE lector
     full_name VARCHAR(255)     NOT NULL,
     degree    SMALLINT         NOT NULL,
     salary    DOUBLE PRECISION NOT NULL,
+    created   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_lector PRIMARY KEY (id)
 );
 
