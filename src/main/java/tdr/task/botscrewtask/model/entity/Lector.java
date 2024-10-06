@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import tdr.task.botscrewtask.model.enums.Degree;
 
 import java.time.Instant;
@@ -16,6 +17,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Lector {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
