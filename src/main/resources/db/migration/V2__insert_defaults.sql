@@ -1,35 +1,35 @@
-DO
-$$
+BEGIN;
+
+DO $$
     BEGIN
-        IF (SELECT COUNT(*) FROM department) = 0 AND (SELECT COUNT(*) FROM lector) = 0 THEN
-            INSERT INTO lector (full_name, degree, salary, creation_date, updated_date)
-            VALUES ('John Doe', 1, 55000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Jane Smith', 2, 62000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Alice Johnson', 1, 50000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Robert Brown', 3, 70000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Michael Clark', 2, 58000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+        IF NOT EXISTS (SELECT 1 FROM department) AND NOT EXISTS (SELECT 1 FROM lector) THEN
+            INSERT INTO lector (id, full_name, degree, salary)
+            VALUES (1, 'John Smith', 3, 70000),
+                   (2, 'Emily Johnson', 2, 65000),
+                   (3, 'Michael Brown', 1, 50000),
+                   (4, 'Olivia Davis', 3, 72000),
+                   (5, 'James Miller', 2, 64000),
+                   (6, 'Sophia Wilson', 1, 52000),
+                   (7, 'William Anderson', 3, 71000),
+                   (8, 'Ava Thomas', 2, 63000),
+                   (9, 'Ethan Martinez', 1, 48000),
+                   (10, 'Isabella White', 3, 75000);
 
-            INSERT INTO department (name, description, location, creation_date, updated_date)
-            VALUES ('Computer Science', 'Department of Computer Science', 'Building A', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP),
-                   ('Physics', 'Department of Physics', 'Building B', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Mathematics', 'Department of Mathematics', 'Building C', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Biology', 'Department of Biology', 'Building D', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                   ('Chemistry', 'Department of Chemistry', 'Building E', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-            INSERT INTO department_lectors (department_id, lectors_id)
-            SELECT d.id, l.id
-            FROM department d,
-                 lector l
-            WHERE d.name = 'Computer Science'
-              AND l.full_name IN ('John Doe', 'Jane Smith');
+            INSERT INTO department (id, name, description, location, head_id)
+            VALUES (1, 'Computer Science', 'Focuses on computing and software', 'Building A', 1),
+                   (2, 'Mathematics', 'Covers pure and applied mathematics', 'Building B', 2),
+                   (3, 'Physics', 'Department of theoretical and applied physics', 'Building C', 3),
+                   (4, 'Biology', 'Studies of life and living organisms', 'Building D', 4),
+                   (5, 'History', 'Explores past events and civilizations', 'Building E', 5);
 
             INSERT INTO department_lectors (department_id, lectors_id)
-            SELECT d.id, l.id
-            FROM department d,
-                 lector l
-            WHERE d.name = 'Physics'
-              AND l.full_name = 'Alice Johnson';
+            VALUES (1, 1), (1, 6), (1, 7),
+                   (2, 2), (2, 8),
+                   (3, 3), (3, 9),
+                   (4, 4), (4, 10),
+                   (5, 5), (5, 6);
 
         END IF;
-    END
-$$;
+    END $$;
+
+COMMIT;
