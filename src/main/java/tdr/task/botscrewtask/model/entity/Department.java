@@ -4,7 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -12,6 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,6 +30,20 @@ public class Department {
     private String description;
     @Column(name = "location")
     private String location;
+
+    @OneToOne(cascade = CascadeType.DETACH, optional = false)
+    @JoinColumn(name = "head_id", nullable = false, unique = true)
+    private Lector head;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created")
+    private Instant created;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated")
+    private Instant updated;
+
 
     @ManyToMany
     @JoinTable(name = "department_lectors",
