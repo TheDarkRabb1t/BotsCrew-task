@@ -10,6 +10,8 @@ import tdr.task.botscrewtask.model.entity.Department;
 import tdr.task.botscrewtask.model.entity.Lector;
 import tdr.task.botscrewtask.repository.DepartmentRepository;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -35,7 +37,7 @@ public class HeadOfDepartmentCommandTest {
         department.setName(departmentName);
         department.setHead(lector);
 
-        when(departmentRepository.getDepartmentByName(departmentName)).thenReturn(department);
+        when(departmentRepository.getDepartmentByName(departmentName)).thenReturn(Optional.of(department));
 
         CommandResult result = headOfDepartmentCommand.execute("Who is head of department " + departmentName);
 
