@@ -1,8 +1,9 @@
 package tdr.task.botscrewtask.command.impl;
 
+import tdr.task.botscrewtask.command.CommandResult;
 import tdr.task.botscrewtask.repository.DepartmentRepository;
 
-public class ShowEmployeeCountForDepartmentCommand extends AbstractCommand<String, String, DepartmentRepository>{
+public class ShowEmployeeCountForDepartmentCommand extends AbstractCommand<CommandResult, String, DepartmentRepository>{
     public ShowEmployeeCountForDepartmentCommand(DepartmentRepository repository) {
         super(repository);
     }
@@ -19,7 +20,7 @@ public class ShowEmployeeCountForDepartmentCommand extends AbstractCommand<Strin
 
 
     @Override
-    public String execute(String value) {
+    public CommandResult execute(String value) {
         return null;
     }
 }

@@ -1,8 +1,9 @@
 package tdr.task.botscrewtask.command.impl;
 
+import tdr.task.botscrewtask.command.CommandResult;
 import tdr.task.botscrewtask.repository.LectorRepository;
 
-public class LectorGlobalSearchCommand extends AbstractCommand<String, String, LectorRepository> {
+public class LectorGlobalSearchCommand extends AbstractCommand<CommandResult, String, LectorRepository> {
     public LectorGlobalSearchCommand(LectorRepository repository) {
         super(repository);
     }
@@ -19,7 +20,7 @@ public class LectorGlobalSearchCommand extends AbstractCommand<String, String, L
 
 
     @Override
-    public String execute(String value) {
+    public CommandResult execute(String value) {
         return null;
     }
 }

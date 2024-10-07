@@ -1,5 +1,8 @@
 package tdr.task.botscrewtask.command;
 
+import tdr.task.botscrewtask.exception.AmbiguousCommandException;
+import tdr.task.botscrewtask.exception.CommandNotRecognisedException;
+
 public interface CommandProcessor {
-    <R> R process(String input) throws IllegalArgumentException;
+    CommandResult process(String input) throws CommandNotRecognisedException, AmbiguousCommandException;
 }
