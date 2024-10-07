@@ -13,9 +13,10 @@ public class ShowAverageSalaryForDepartmentCommand extends AbstractCommand<Strin
     }
 
     @Override
-    public boolean supports() {
+    public boolean supports(String value) {
         return false;
     }
+
 
     @Override
     public String execute(String value) {

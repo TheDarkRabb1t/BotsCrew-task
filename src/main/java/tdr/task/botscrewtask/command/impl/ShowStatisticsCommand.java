@@ -13,9 +13,10 @@ public class ShowStatisticsCommand extends AbstractCommand<String, String, Depar
     }
 
     @Override
-    public boolean supports() {
+    public boolean supports(String value) {
         return false;
     }
+
 
     @Override
     public String execute(String value) {

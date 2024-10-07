@@ -14,9 +14,10 @@ public class HeadOfDepartmentCommand extends AbstractCommand<String, String, Dep
     }
 
     @Override
-    public boolean supports() {
+    public boolean supports(String value) {
         return false;
     }
+
 
     @Override
     public String execute(String value) {
