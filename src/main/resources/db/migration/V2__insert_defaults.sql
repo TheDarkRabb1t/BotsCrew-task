@@ -4,16 +4,16 @@ DO $$
     BEGIN
         IF NOT EXISTS (SELECT 1 FROM department) AND NOT EXISTS (SELECT 1 FROM lector) THEN
             INSERT INTO lector (id, full_name, degree, salary)
-            VALUES (1, 'John Smith', 3, 70000),
+            VALUES (1, 'John Smith', 2, 70000),
                    (2, 'Emily Johnson', 2, 65000),
-                   (3, 'Michael Brown', 1, 50000),
-                   (4, 'Olivia Davis', 3, 72000),
-                   (5, 'James Miller', 2, 64000),
-                   (6, 'Sophia Wilson', 1, 52000),
-                   (7, 'William Anderson', 3, 71000),
-                   (8, 'Ava Thomas', 2, 63000),
-                   (9, 'Ethan Martinez', 1, 48000),
-                   (10, 'Isabella White', 3, 75000);
+                   (3, 'Michael Brown', 2, 75000),
+                   (4, 'Olivia Davis', 2, 75000),
+                   (5, 'James Miller', 2, 70000),
+                   (6, 'Sophia Wilson', 1, 67000),
+                   (7, 'William Anderson', 1, 71000),
+                   (8, 'Ava Thomas', 0, 53000),
+                   (9, 'Ethan Martinez', 0, 48000),
+                   (10, 'Isabella White', 0, 44000);
 
             INSERT INTO department (id, name, description, location, head_id)
             VALUES (1, 'Computer Science', 'Focuses on computing and software', 'Building A', 1),
