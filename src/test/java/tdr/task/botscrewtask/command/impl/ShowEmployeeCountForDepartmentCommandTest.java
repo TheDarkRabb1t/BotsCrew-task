@@ -32,7 +32,7 @@ public class ShowEmployeeCountForDepartmentCommandTest {
         CommandResult result = showEmployeeCountForDepartmentCommand.execute("Show count of employee for " + departmentName);
 
         assertThat(result).isNotNull();
-        assertThat(result.asString()).isEqualTo("Count of employees for " + departmentName + " is 100");
+        assertThat(result.asString()).isEqualTo("100");
         verify(departmentRepository, times(1)).countEmployeesByDepartmentName(departmentName);
     }
 }

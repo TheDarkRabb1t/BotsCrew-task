@@ -20,7 +20,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public LectorDto getHeadByDepartmentName(String name) {
-        return lectorMapper.toDto(departmentRepository.getDepartmentByName(name).getHead());
+        return lectorMapper.toDto(departmentRepository.getDepartmentByName(name).orElseThrow().getHead());
     }
 
     @Override

@@ -3,11 +3,11 @@ package tdr.task.botscrewtask.repository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tdr.task.botscrewtask.command.CommandProcessor;
 import tdr.task.botscrewtask.model.entity.Department;
 import tdr.task.botscrewtask.model.entity.Lector;
 import tdr.task.botscrewtask.model.enums.Degree;
@@ -18,7 +18,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @ActiveProfiles("test")
 public class DepartmentRepositoryTest {
@@ -28,7 +27,8 @@ public class DepartmentRepositoryTest {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
+    @MockBean
+    private CommandProcessor commandProcessor;
     private Department department;
 
     @BeforeEach
@@ -57,7 +57,7 @@ public class DepartmentRepositoryTest {
 
     @Test
     void testGetDepartmentByName() {
-        Department found = departmentRepository.getDepartmentByName("Computer Science");
+        Department found = departmentRepository.getDepartmentByName("Computer Science").get();
 
         assertThat(found).isNotNull();
         assertThat(found.getName()).isEqualTo("Computer Science");

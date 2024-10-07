@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 import tdr.task.botscrewtask.model.entity.Department;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    Department getDepartmentByName(String name);
+    Optional<Department> getDepartmentByName(String name);
 
     @Query(value = """
             select avg(l.salary)
