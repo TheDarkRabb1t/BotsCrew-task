@@ -13,6 +13,8 @@ import tdr.task.botscrewtask.model.mapper.LectorMapper;
 import tdr.task.botscrewtask.repository.DepartmentRepository;
 import tdr.task.botscrewtask.service.impl.DepartmentServiceImpl;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -47,7 +49,7 @@ public class DepartmentServiceImplTest {
         department.setName(departmentName);
         department.setHead(headLector);
 
-        when(departmentRepository.getDepartmentByName(departmentName)).thenReturn(department);
+        when(departmentRepository.getDepartmentByName(departmentName)).thenReturn(Optional.of(department));
 
         when(lectorMapper.toDto(headLector)).thenReturn(headLectorDto);
 

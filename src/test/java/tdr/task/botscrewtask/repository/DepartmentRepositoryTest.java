@@ -57,7 +57,7 @@ public class DepartmentRepositoryTest {
 
     @Test
     void testGetDepartmentByName() {
-        Department found = departmentRepository.getDepartmentByName("Computer Science");
+        Department found = departmentRepository.getDepartmentByName("Computer Science").get();
 
         assertThat(found).isNotNull();
         assertThat(found.getName()).isEqualTo("Computer Science");
