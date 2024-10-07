@@ -10,11 +10,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LectorGlobalSearchCommand extends AbstractCommand<CommandResult, String, LectorRepository> {
-    private static final String TEMPLATE = "Global search by (.+)";
-    private static final String RESPONSE_TEMPLATE = "%s"; // For direct listing of lecturers
+    private static final String TEMPLATE = "(?i)Global\\s+search\\s+by\\s+(.+)";
+    private final Pattern pattern;
 
     public LectorGlobalSearchCommand(LectorRepository repository) {
         super(repository);
+        this.pattern = Pattern.compile(TEMPLATE, Pattern.CASE_INSENSITIVE);
     }
 
     @Override
@@ -24,28 +25,26 @@ public class LectorGlobalSearchCommand extends AbstractCommand<CommandResult, St
 
     @Override
     public boolean supports(String value) {
-        return Pattern.matches(TEMPLATE, value);
+        Matcher matcher = pattern.matcher(value.trim());
+        return matcher.matches();
     }
 
     @Override
     public CommandResult execute(String value) {
-        Matcher matcher = Pattern.compile(TEMPLATE).matcher(value);
-        if (!matcher.find()) {
+        Matcher matcher = pattern.matcher(value.trim());
+        if (matcher.find()) {
+            String searchTemplate = matcher.group(1).trim();
+            List<String> lecturers = repository.globalSearchByValue(searchTemplate).stream()
+                    .map(Lector::getFullName)
+                    .toList();
+
+            String resultMessage = lecturers.isEmpty()
+                    ? "No lecturers found for the search term: " + searchTemplate
+                    : String.join(", ", lecturers);
+
+            return new DefaultCommandResult("Global search results: " + resultMessage);
+        } else {
             return new DefaultCommandResult("Invalid search format.");
         }
-
-        String searchTemplate = matcher.group(1).trim();
-        List<String> lecturers = repository.globalSearchByValue(searchTemplate).stream()
-                .map(Lector::getFullName)
-                .toList();
-
-        String resultMessage;
-        if (lecturers.isEmpty()) {
-            resultMessage = "No lecturers found for the search term: " + searchTemplate;
-        } else {
-            resultMessage = String.join(", ", lecturers);
-        }
-
-        return new DefaultCommandResult("Global search results: " + resultMessage);
     }
 }

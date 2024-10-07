@@ -6,14 +6,15 @@ import tdr.task.botscrewtask.repository.DepartmentRepository;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class HeadOfDepartmentCommand extends AbstractCommand<CommandResult, String, DepartmentRepository> {
 
     private static final String TEMPLATE = "(?i)Who\\s+is\\s+head\\s+of\\s+department\\s+(.+)\\s*";
     private static final String RESPONSE_TEMPLATE = "Head of %s department is %s";
+    private final Pattern pattern;
 
     public HeadOfDepartmentCommand(DepartmentRepository repository) {
         super(repository);
+        this.pattern = Pattern.compile(TEMPLATE, Pattern.CASE_INSENSITIVE);
     }
 
     @Override
@@ -23,12 +24,13 @@ public class HeadOfDepartmentCommand extends AbstractCommand<CommandResult, Stri
 
     @Override
     public boolean supports(String value) {
-        return Pattern.matches(TEMPLATE, value);
+        Matcher matcher = pattern.matcher(value.trim());
+        return matcher.matches();
     }
 
     @Override
     public CommandResult execute(String value) {
-        Matcher matcher = Pattern.compile(TEMPLATE).matcher(value.trim());
+        Matcher matcher = pattern.matcher(value.trim());
         if (matcher.find()) {
             String departmentName = matcher.group(1).trim();
 
@@ -45,5 +47,4 @@ public class HeadOfDepartmentCommand extends AbstractCommand<CommandResult, Stri
             return new DefaultCommandResult("Invalid command format.");
         }
     }
-
 }
