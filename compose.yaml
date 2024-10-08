@@ -21,6 +21,8 @@ services:
       - postgres
     networks:
       - botscrew
+    stdin_open: true
+    tty: true
 networks:
   botscrew:
     driver: bridge
